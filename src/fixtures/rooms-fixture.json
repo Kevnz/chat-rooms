@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "General",
+    "description": "General Room",
+    "slug": "general"
+  },
+  {
+    "id": 2,
+    "name": "Random",
+    "description": "Random Talk Room",
+    "slug": "random"
+  },
+  {
+    "id": 3,
+    "name": "Robust incremental hierarchy",
+    "description": "plug-and-play revolutionize ROI",
+    "slug": "robust-incremental-hierarchy"
+  },
+  {
+    "id": 4,
+    "name": "Multi-lateral mobile array",
+    "description": "open-source target e-services",
+    "slug": "multi-lateral-mobile-array"
+  },
+  {
+    "id": 5,
+    "name": "Streamlined intangible workforce",
+    "description": "rich embrace infrastructures",
+    "slug": "streamlined-intangible-workforce"
+  },
+  {
+    "id": 6,
+    "name": "Future-proofed scalable migration",
+    "description": "end-to-end strategize e-services",
+    "slug": "future-proofed-scalable-migration"
+  },
+  {
+    "id": 7,
+    "name": "Decentralized tertiary process improvement",
+    "description": "sexy streamline technologies",
+    "slug": "decentralized-tertiary-process-improvement"
+  },
+  {
+    "id": 8,
+    "name": "Customer-focused client-driven customer loyalty",
+    "description": "24/7 facilitate experiences",
+    "slug": "customer-focused-client-driven-customer-loyalty"
+  },
+  {
+    "id": 9,
+    "name": "Re-contextualized dedicated circuit",
+    "description": "24/365 reintermediate synergies",
+    "slug": "re-contextualized-dedicated-circuit"
+  },
+  {
+    "id": 10,
+    "name": "Balanced asymmetric portal",
+    "description": "viral syndicate e-services",
+    "slug": "balanced-asymmetric-portal"
+  }
+]
