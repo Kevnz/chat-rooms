@@ -5,6 +5,7 @@ const Hapi = require('@hapi/hapi')
 const Manifest = require('./manifest')
 const Types = require('./graphql/types')
 const Resolvers = require('./graphql/resolvers')
+const analytics = require('./services/analytics')
 let app
 
 const start = async () => {
@@ -22,16 +23,24 @@ const start = async () => {
         },
       },
     })
+    await app.register({
+      plugin: require('@hapi/nes'),
+      options: {
+        onConnection: socket => {
+          analytics.event('SocketOperation', 'SocketConnection')
+        },
+      },
+    })
     await app.register(Manifest)
     await server.applyMiddleware({
       app,
     })
 
-    await server.installSubscriptionHandlers(app.listener)
-
     await app.start()
+    analytics.event('ServerOperation', 'ServerStart')
   } catch (err) {
-    console.log(err)
+    console.error(err)
+    analytics.event('ServerOperation', 'ServerFail')
     process.exit(1)
   }
   console.log('🚀 Server running')
@@ -41,10 +50,12 @@ process.on('SIGINT', async () => {
   console.log('stopping server')
   try {
     await app.stop({ timeout: 10000 })
-    console.log('The server has stopped 🛑')
+    console.warn('The server has stopped 🛑')
+    analytics.event('ServerOperation', 'ServerStopped')
     process.exit(0)
   } catch (err) {
     console.error('shutdown server error', err)
+    analytics.event('ServerOperation', 'ServerStoppedFail')
     process.exit(1)
   }
 })
