@@ -16,6 +16,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@brightleaf/cache": "^1.0.3",
     "@brightleaf/react-hooks": "^0.4.1",
     "@hapi/good": "^8.2.0",
     "@hapi/good-console": "^8.1.0",
