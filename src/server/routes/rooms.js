@@ -1,29 +1,18 @@
 const analytics = require('../services/analytics')
-
-const rooms = ['general', 'random', 'code']
+const RoomService = require('../services/rooms')
 const POST_CATEGORY = 'MESSAGE POST'
+
 const BROADCAST_CATEGORY = 'BROADCAST POST'
-const ROOMS_CATEGORY = 'ROOMS GET'
+const ROOMS_CATEGORY = 'ROOMS ACTION'
 module.exports = [
-  {
-    method: 'GET',
-    path: '/broadcast',
-    config: {
-      handler: (r, h) => {
-        analytics.event(BROADCAST_CATEGORY, `Broadcast called`)
-        r.server.broadcast('welcome!')
-        return { result: 'SENT' }
-      },
-    },
-  },
   {
     method: 'GET',
     path: '/rooms',
     config: {
       id: 'rooms',
-      handler: (request, h) => {
+      handler: async (request, h) => {
         analytics.event(ROOMS_CATEGORY, `Get All Rooms`)
-        return { rooms }
+        return RoomService.getAll()
       },
     },
   },
@@ -39,13 +28,35 @@ module.exports = [
     },
   },
   {
+    method: 'PUT',
+    path: '/rooms/{slug}',
+    config: {
+      id: 'join-room',
+      handler: (r, h) => {
+        analytics.event(ROOMS_CATEGORY, `USER JOINED ROOM ${r.params.slug}`)
+        RoomService.joinRoom(r.params.slug, {
+          ...r.payload,
+          postedAt: Date.now(),
+        })
+        r.server.publish(`/rooms/${r.params.slug}`, {
+          message: `User ${r.payload.user} joined`,
+        })
+        return true
+      },
+    },
+  },
+  {
     method: 'POST',
-    path: '/rooms/{id}/message',
+    path: '/rooms/{slug}/message',
     config: {
       id: 'room-message',
       handler: (r, h) => {
         analytics.event(POST_CATEGORY, `Message Post to ${r.params.id}`)
-        r.server.publish(`/rooms/${r.params.id}`, r.payload)
+        RoomService.addMessage(r.params.slug, {
+          ...r.payload,
+          postedAt: Date.now(),
+        })
+        r.server.publish(`/rooms/${r.params.slug}`, r.payload)
         return true
       },
     },
