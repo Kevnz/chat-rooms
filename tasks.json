@@ -2,10 +2,12 @@
   "test": "npx jest --config=jest.config.js --detectOpenHandles --forceExit --watch",
   "lint": "npx eslint ./src",
   "build": "npx webpack --config ./src/webpack/prod.config.js --mode production",
+  "fixtures": "node ./src/utils/fixtures",
   "predev": [
     "docker-compose -f ./docker/dev/docker-compose.yml up --detach",
     "node ./src/scripts/delay.js",
-    "npx knex migrate:latest"
+    "npx knex migrate:latest",
+    "npx knex seed:run"
   ],
   "dev": [
     "nodemon ./src/server/index.js",
