@@ -17,5 +17,8 @@
   },
   "app": {
     "secret": "the app secret so change it"
+  },
+  "google": {
+    "analytics": ""
   }
 }
