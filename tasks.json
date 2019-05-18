@@ -4,7 +4,8 @@
   "build": "npx webpack --config ./src/webpack/prod.config.js --mode production",
   "predev": [
     "docker-compose -f ./docker/dev/docker-compose.yml up --detach",
-    "node ./src/scripts/delay.js"
+    "node ./src/scripts/delay.js",
+    "npx knex migrate:latest"
   ],
   "dev": [
     "nodemon ./src/server/index.js",
