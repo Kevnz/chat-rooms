@@ -3,15 +3,14 @@ const cache = require('./cache')
 
 module.exports = {
   addMessage: async (room, message) => {
-    cache.push(room, message)
+    cache.push(room, { ...message, type: 'message' })
   },
   joinRoom: async (room, data) => {
-    cache.push(`${room}-join`, data)
+    cache.push(room, { ...data, type: 'system' })
   },
   getMessages: async room => {
     const messages = await cache.getHistory(room)
-    console.info('message', messages)
-    return messages
+    return messages.map(m => JSON.parse(m))
   },
   getAll: async () => {
     return cache.get('all-rooms', async () => {
