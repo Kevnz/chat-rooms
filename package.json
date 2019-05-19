@@ -64,7 +64,7 @@
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.8.0",
     "nodemon": "^1.19.0",
-    "react-hot-loader": "^4.8.5",
+    "react-hot-loader": "^4.8.6",
     "react-testing-library": "^7.0.0",
     "style-loader": "^0.23.1",
     "typesetter": "^2.0.1",
