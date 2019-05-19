@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 const Hapi = require('@hapi/hapi')
 const rooms = require('../rooms')
 let server
@@ -9,9 +10,7 @@ describe('The Room Routes', () => {
       port: 4343,
       host: 'localhost',
     })
-    await server.register({
-      plugin: require('blipp'),
-    })
+
     rooms.forEach(r => server.route(r))
     await server.start()
   })
@@ -122,7 +121,8 @@ describe('The Room Routes', () => {
       url: '/rooms/general',
     }
     const { payload } = await server.inject(getOptions)
-    console.log('pay', payload)
-    expect(JSON.parse(payload).length).toBeGreaterThanOrEqual(2)
+    const messages = JSON.parse(payload)
+
+    expect(messages.length).toBeGreaterThanOrEqual(2)
   })
 })
