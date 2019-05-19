@@ -23,9 +23,7 @@ module.exports = [
       id: 'rooms-by-slug',
       handler: async (r, h) => {
         analytics.event(ROOMS_CATEGORY, `Get Room ${r.params.slug}`)
-        const messages = await RoomService.getMessages(r.params.slug)
-        console.info('messages', messages)
-        return messages
+        return RoomService.getMessages(r.params.slug)
       },
     },
   },
