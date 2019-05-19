@@ -9,16 +9,13 @@ module.exports = {
     cache.push(`${room}-join`, data)
   },
   getMessages: async room => {
-    const messages = cache.getHistory(room)
+    const messages = await cache.getHistory(room)
     console.info('message', messages)
+    return messages
   },
   getAll: async () => {
-    const rooms = await cache.get('all-rooms', async () => {
-      const rooms = await Room.fetchAll()
-      console.log('rooms', rooms)
-      return rooms
+    return cache.get('all-rooms', async () => {
+      return Room.fetchAll()
     })
-    console.info('Rooms', rooms)
-    return rooms
   },
 }
