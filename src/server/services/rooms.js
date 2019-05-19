@@ -8,6 +8,11 @@ module.exports = {
   joinRoom: async (room, data) => {
     cache.push(room, { ...data, type: 'system' })
   },
+  getRoom: async slug => {
+    const room = new Room({ slug: slug })
+    await room.fetch()
+    return room
+  },
   getMessages: async room => {
     const messages = await cache.getHistory(room)
     return messages.map(m => JSON.parse(m))
