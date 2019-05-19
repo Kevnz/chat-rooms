@@ -3,12 +3,14 @@ const cache = new Cache()
 
 module.exports = {
   push: async (key, item) => {
-    cache.client.lpush(key, item)
+    console.info(cache)
+    cache.redis.lpush(key, JSON.stringify(item))
   },
   getHistory: async key => {
-    const history = cache.client.lrange(key, 0, -1)
+    console.info(cache)
+    const history = cache.redis.lrange(key, 0, -1)
     console.info(key, history)
-    return history
+    return JSON.parse(history)
   },
   get: async (key, getter) => {
     const fromCache = await cache.get(key)
