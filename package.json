@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@brightleaf/cache": "^1.0.3",
-    "@brightleaf/react-hooks": "^0.4.1",
+    "@brightleaf/react-hooks": "^0.5.0",
     "@hapi/good": "^8.2.0",
     "@hapi/good-console": "^8.1.0",
     "@hapi/hapi": "^18.3.1",
@@ -38,6 +38,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-form-elements": "^2.4.1",
+    "react-helmet": "^5.2.1",
     "universal-analytics": "^0.4.20",
     "xtconf": "^4.1.0"
   },
