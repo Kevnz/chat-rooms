@@ -1,5 +1,4 @@
 {
-  "test": "npx jest --config=jest.config.js --detectOpenHandles --forceExit --watch",
   "lint": "npx eslint ./src",
   "build": "npx webpack --config ./src/webpack/prod.config.js --mode production",
   "fixtures": "node ./src/utils/fixtures",
@@ -16,6 +15,21 @@
   "postdev": [
     "docker-compose -f ./docker/dev/docker-compose.yml down"
   ],
+  "pretest": [
+    "docker-compose -f ./docker/docker-compose.yml up --detach",
+    "node ./src/scripts/delay.js",
+    "npx knex migrate:latest",
+    "npx knex seed:run"
+  ],
+  "test": [
+    "npx jest --config=jest.config.js --detectOpenHandles --forceExit --watch --testPathPattern='(src/server).*(__tests__).*.test.js'",
+    "nxp jest ./src/ui --config=jest.ui.config.js --detectOpenHandles --forceExit --watch"
+  ],
+  "posttest": [
+    "npx knex migrate:rollback",
+    "docker-compose -f ./docker/docker-compose.yml down"
+  ],
+  "server:test": "npx jest --config=jest.config.js --detectOpenHandles --forceExit --watch --testPathPattern='(src/server).*(__tests__).*.test.js'",
   "docker:up": "docker-compose -f ./docker/dev/docker-compose.yml up",
   "docker:down": "docker-compose -f ./docker/dev/docker-compose.yml down",
   "storybook": "npx tart-storybook -p 6006",
