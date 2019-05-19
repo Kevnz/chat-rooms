@@ -1,6 +1,6 @@
 const User = require('../user')
 let user
-describe('The User Model', async () => {
+describe('The User Model', () => {
   afterEach(async () => {
     await user.destroy()
   })
