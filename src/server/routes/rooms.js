@@ -18,12 +18,14 @@ module.exports = [
   },
   {
     method: 'GET',
-    path: '/rooms/{id}',
+    path: '/rooms/{slug}',
     config: {
-      id: 'rooms-by-id',
-      handler: (r, h) => {
-        analytics.event(ROOMS_CATEGORY, `Get Room ${r.params.id}`)
-        return r.params.id
+      id: 'rooms-by-slug',
+      handler: async (r, h) => {
+        analytics.event(ROOMS_CATEGORY, `Get Room ${r.params.slug}`)
+        const messages = await RoomService.getMessages(r.params.slug)
+        console.info('messages', messages)
+        return messages
       },
     },
   },
@@ -51,7 +53,7 @@ module.exports = [
     config: {
       id: 'room-message',
       handler: (r, h) => {
-        analytics.event(POST_CATEGORY, `Message Post to ${r.params.id}`)
+        analytics.event(POST_CATEGORY, `Message Post to ${r.params.slug}`)
         RoomService.addMessage(r.params.slug, {
           ...r.payload,
           postedAt: Date.now(),
