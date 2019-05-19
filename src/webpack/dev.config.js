@@ -14,7 +14,6 @@ const devConfig = {
     new HtmlWebpackPlugin({
       title: 'Full Stack Web App',
       template: './src/ui/index.html',
-
     }),
   ],
   devServer: {
@@ -22,7 +21,7 @@ const devConfig = {
     contentBase: './dist',
     hot: true,
     proxy: {
-      '/graphql': 'http://localhost:4567/',
+      '/api/rooms': 'http://localhost:4567/',
     },
   },
 }
