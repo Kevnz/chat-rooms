@@ -20,7 +20,7 @@ describe('The Room Routes', () => {
   it('should get the rooms', async () => {
     const injectOptions = {
       method: 'GET',
-      url: '/rooms',
+      url: '/api/rooms',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -32,15 +32,15 @@ describe('The Room Routes', () => {
   it('should get the messages for a room', async () => {
     const injectOptions = {
       method: 'GET',
-      url: '/rooms/general',
+      url: '/api/rooms/general',
       headers: {
         'Content-Type': 'application/json',
       },
     }
     const { payload } = await server.inject(injectOptions)
-    const messages = JSON.parse(payload)
+    const roomDetails = JSON.parse(payload)
 
-    expect(messages.length).toBeGreaterThanOrEqual(0)
+    expect(roomDetails.messages.length).toBeGreaterThanOrEqual(0)
   })
   it('should join a chat room when a user is `PUT` on the route', async () => {
     const mockFN = jest.fn()
@@ -55,7 +55,7 @@ describe('The Room Routes', () => {
 
     const injectOptions = {
       method: 'PUT',
-      url: '/rooms/general',
+      url: '/api/rooms/general',
       payload: JSON.stringify({
         user: 'Test User',
       }),
@@ -76,7 +76,7 @@ describe('The Room Routes', () => {
 
     const injectOptions = {
       method: 'POST',
-      url: '/rooms/general/message',
+      url: '/api/rooms/general/message',
       payload: JSON.stringify({
         user: 'Test User',
         message: 'Hi there from the test user',
@@ -98,7 +98,7 @@ describe('The Room Routes', () => {
 
     const injectOptions = {
       method: 'POST',
-      url: '/rooms/general/message',
+      url: '/api/rooms/general/message',
       payload: JSON.stringify({
         user: 'Test User',
         message: 'Hi there from the test user',
@@ -107,7 +107,7 @@ describe('The Room Routes', () => {
     await server.inject(injectOptions)
     const injectOptions2 = {
       method: 'POST',
-      url: '/rooms/general/message',
+      url: '/api/rooms/general/message',
       payload: JSON.stringify({
         user: 'Other User',
         message: 'Hi there from the other user',
@@ -118,11 +118,11 @@ describe('The Room Routes', () => {
 
     const getOptions = {
       method: 'GET',
-      url: '/rooms/general',
+      url: '/api/rooms/general',
     }
     const { payload } = await server.inject(getOptions)
-    const messages = JSON.parse(payload)
+    const roomDetails = JSON.parse(payload)
 
-    expect(messages.length).toBeGreaterThanOrEqual(2)
+    expect(roomDetails.messages.length).toBeGreaterThanOrEqual(2)
   })
 })

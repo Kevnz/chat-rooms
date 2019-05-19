@@ -7,7 +7,7 @@ const ROOMS_CATEGORY = 'ROOMS ACTION'
 module.exports = [
   {
     method: 'GET',
-    path: '/rooms',
+    path: '/api/rooms',
     config: {
       id: 'rooms',
       handler: async (request, h) => {
@@ -18,18 +18,20 @@ module.exports = [
   },
   {
     method: 'GET',
-    path: '/rooms/{slug}',
+    path: '/api/rooms/{slug}',
     config: {
       id: 'rooms-by-slug',
       handler: async (r, h) => {
         analytics.event(ROOMS_CATEGORY, `Get Room ${r.params.slug}`)
-        return RoomService.getMessages(r.params.slug)
+        const room = await RoomService.getRoom(r.params.slug)
+        const messages = await RoomService.getMessages(r.params.slug)
+        return { room, messages }
       },
     },
   },
   {
     method: 'PUT',
-    path: '/rooms/{slug}',
+    path: '/api/rooms/{slug}',
     config: {
       id: 'join-room',
       handler: (r, h) => {
@@ -47,7 +49,7 @@ module.exports = [
   },
   {
     method: 'POST',
-    path: '/rooms/{slug}/message',
+    path: '/api/rooms/{slug}/message',
     config: {
       id: 'room-message',
       handler: (r, h) => {
