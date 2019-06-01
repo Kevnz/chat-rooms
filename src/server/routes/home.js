@@ -1,7 +1,7 @@
 module.exports = [
   {
     method: 'GET',
-    path: '/',
+    path: '/homegrown',
     config: {
       handler: (request, h) => {
         return request.file('index.html')
