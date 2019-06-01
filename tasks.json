@@ -34,5 +34,5 @@
   "docker:down": "docker-compose -f ./docker/dev/docker-compose.yml down",
   "storybook": "npx tart-storybook -p 6006",
   "build-storybook": "npx build-storybook",
-  "start": "node ./src/server/index.js",
+  "start": "node ./src/server/index.js"
 }
