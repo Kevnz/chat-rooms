@@ -52,14 +52,19 @@ module.exports = [
     path: '/api/rooms/{slug}/message',
     config: {
       id: 'room-message',
-      handler: (r, h) => {
+      handler: async (r, h) => {
+        console.log('the messag eposted??', `|/api/rooms/${r.params.slug}|`)
+        await r.server.publish(`/api/rooms/${r.params.slug}`, r.payload)
+        await r.server.publish(`/rooms/${r.params.slug}`, r.payload)
+
+        console.log('published?', r.payload)
         analytics.event(POST_CATEGORY, `Message Post to ${r.params.slug}`)
         RoomService.addMessage(r.params.slug, {
           ...r.payload,
           postedAt: Date.now(),
         })
-        r.server.publish(`/rooms/${r.params.slug}`, r.payload)
-        return true
+        // r.server.publish(`/api/rooms/${r.params.slug}`, r.payload)
+        return { result: true }
       },
     },
   },

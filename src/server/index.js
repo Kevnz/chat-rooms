@@ -26,12 +26,20 @@ const start = async () => {
     await app.register({
       plugin: require('@hapi/nes'),
       options: {
+        onMessage: async message => {
+          console.info('onMessage', message)
+        },
         onConnection: socket => {
+          console.log('onConnect')
           analytics.event('SocketOperation', 'SocketConnection')
         },
       },
     })
+
     await app.register(Manifest)
+    app.subscription('/api/rooms/general')
+    app.subscription('/rooms/{id}')
+    app.subscription('/api/rooms/{id}')
     await server.applyMiddleware({
       app,
     })
