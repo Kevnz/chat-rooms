@@ -1,5 +1,5 @@
 const Cache = require('@brightleaf/cache')
-const cache = new Cache()
+const cache = new Cache(process.env.REDIS_URL)
 
 module.exports = {
   push: async (key, item) => {
