@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@brightleaf/cache": "^1.0.3",
-    "@brightleaf/react-hooks": "^0.7.0",
+    "@brightleaf/react-hooks": "^0.8.0",
     "@hapi/good": "^8.2.0",
     "@hapi/good-console": "^8.1.0",
     "@hapi/hapi": "^18.3.1",
@@ -50,6 +50,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
+    "@hot-loader/react-dom": "^16.8.6",
     "@kev_nz/eslint-config": "^3.3.0",
     "@storybook/addon-actions": "^5.0.11",
     "@storybook/addon-links": "^5.0.11",
