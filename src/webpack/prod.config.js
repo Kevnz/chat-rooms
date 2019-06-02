@@ -29,6 +29,11 @@ const prodConfig = {
     publicPath: '/',
     filename: 'bundle.js',
   },
+  resolve: {
+    extensions: ['*', '.mjs', '.js', '.jsx'],
+    modules: ['node_modules', 'src'],
+    alias: {},
+  },
 }
 
 module.exports = {
