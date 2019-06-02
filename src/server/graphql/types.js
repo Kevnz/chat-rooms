@@ -46,9 +46,7 @@ const typeDefs = gql`
     """
     **signup** allows user to create an account
     """
-    signup(
-      newUserInput: NewUserInput!
-    ): AuthPayload!
+    signup(newUserInput: NewUserInput!): AuthPayload!
 
     """
     **login** allows a user to authenticate
