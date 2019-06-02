@@ -1,16 +1,14 @@
 import React, { useContext } from 'react'
 import { Form, TextBox, EmailInput, Button } from 'react-form-elements'
-import gql from 'graphql-tag'
 import { navigate } from '@reach/router'
-import { useMutation } from '../hooks/use-mutation'
+import { useMutation } from '@brightleaf/react-hooks'
 import { AuthContext } from '../core/context/auth'
 
-const REGISTER_MUTATION = gql`
-  mutation Signup($newUserInput: NewUserInput!) {
+const REGISTER_MUTATION = `
+  mutation Register($newUserInput: NewUserInput!) {
     signup(newUserInput: $newUserInput) {
       token
       user {
-        id
         firstName
         lastName
         username
@@ -21,9 +19,17 @@ const REGISTER_MUTATION = gql`
 `
 
 const RegisterForm = () => {
-  const registerUser = useMutation(REGISTER_MUTATION)
-  const { state, dispatch } = useContext(AuthContext)
+  console.log({ Form, TextBox, EmailInput, Button })
+  console.log(useMutation)
+  console.log(useContext)
+  console.log(AuthContext)
 
+  const { data, makeQuery } = useMutation('/graphql', REGISTER_MUTATION)
+  const { state, dispatch } = useContext(AuthContext)
+  if (!Array.isArray(data)) {
+    console.log('the data is not an array', data)
+    // dispatch({ type: 'login', payload: data })
+  }
   if (state.isLoggedIn) {
     return <div>Account already exists</div>
   }
@@ -35,32 +41,19 @@ const RegisterForm = () => {
           <Form
             name="registerForm"
             onSubmit={({ firstName, lastName, email, password, username }) => {
-              registerUser({
-                update: (proxy, mutationResult) => {
-                  console.info('prox', proxy)
-                  console.info('mutie', mutationResult)
-                  const { token, user } = mutationResult.data.signup
-
-                  dispatch({
-                    type: 'login',
-                    payload: { token, user },
-                  })
-                  navigate('/')
-                },
-                variables: {
-                  newUserInput: {
-                    firstName,
-                    lastName,
-                    email,
-                    password,
-                    username,
-                  },
+              makeQuery({
+                newUserInput: {
+                  firstName,
+                  lastName,
+                  email,
+                  password,
+                  username,
                 },
               })
             }}
           >
             <TextBox name="firstName" label="First Name" initialValue="" />
-            <TextBox name="lastName" label="First Name" initialValue="" />
+            <TextBox name="lastName" label="Last Name" initialValue="" />
             <EmailInput
               type="email"
               name="email"
