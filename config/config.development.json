@@ -1,4 +1,5 @@
 {
+  "port": 4567,
   "database": {
     "client": "pg",
     "connection": {
