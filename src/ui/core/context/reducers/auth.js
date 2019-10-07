@@ -13,13 +13,14 @@ const initialState = {
 }
 
 export const useAuthHook = () => {
-  const [authToken, setAuthToken] = useLocalStorage('auth_token')
+  const [authToken, setAuthToken] = useLocalStorage('chat_auth_token')
   const [authUser, setAuthUser] = useLocalStorage(
-    'auth_user',
+    'chat_auth_user',
     initialState.user
   )
 
   let reducer = (state, action) => {
+    console.log('auth action', action)
     switch (action.type) {
       case 'login':
         const { token, user } = action.payload
