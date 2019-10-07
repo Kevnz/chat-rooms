@@ -1,23 +1,26 @@
 import React from 'react'
+import { Form, TextArea, Button } from 'react-form-elements'
 
-import { usePost } from '@brightleaf/react-hooks'
-import { Button, Form, TextArea } from 'react-form-elements'
-
-function MessagePost({ username, url }) {
-  const { postData } = usePost(url)
+function MessagePost({ username, onSubmit }) {
   return (
     <Form
       name="chatText"
+      className="form"
       onSubmit={mdata => {
-        console.log('post')
-        postData({
+        onSubmit({
           ...mdata,
           user: username,
         })
       }}
     >
-      <TextArea label="Message" name="message" />
-      <Button>Send</Button>
+      <TextArea
+        label="Message"
+        name="message"
+        inputClassName="textarea"
+        className="field control"
+        labelClassName="label"
+      />
+      <Button className="button is-primary">Send</Button>
     </Form>
   )
 }
