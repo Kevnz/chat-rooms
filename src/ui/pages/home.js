@@ -1,34 +1,46 @@
-import React from 'react'
-import { Helmet } from 'react-helmet'
-import { useGet } from '@brightleaf/react-hooks'
+import React, { useContext } from 'react'
+import {
+  Container,
+  Section,
+  Hero,
+  HeroBody,
+  Title,
+  SubTitle,
+} from '@brightleaf/elements'
+import { useTitle } from '@brightleaf/react-hooks'
 import { Link } from '@reach/router'
 import Room from '../components/room'
+import { RoomsContext } from '../core/context/rooms'
 
-export default () => {
-  const { data, error, loading } = useGet('/api/rooms')
-  if (loading) {
-    return 'loading'
+const RoomLinks = ({ rooms }) => {
+  if (rooms.length === 0) {
+    return <div>No Rooms</div>
   }
-  if (error) {
-    console.error(error)
-    return 'bugger'
-  }
-  const rooms = data.map(t => {
+  return rooms.map(t => {
     return (
       <div key={`room-${t.id}`}>
         <Room {...t} />
         <Link to={`rooms/${t.slug}`}>Go</Link>
+        <hr />
       </div>
     )
   })
+}
+export default () => {
+  useTitle('The Chat Rooms - Home')
+  const { rooms } = useContext(RoomsContext)
+
   return (
-    <main>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>The Chat Rooms - Home</title>
-      </Helmet>
-      <h1>Rooms</h1>
-      {rooms}
-    </main>
+    <Container>
+      <Hero>
+        <HeroBody>
+          <Title>Chat Rooms</Title>
+          <SubTitle>Chatting on the web</SubTitle>
+        </HeroBody>
+      </Hero>
+      <Section>
+        <RoomLinks rooms={rooms} />
+      </Section>
+    </Container>
   )
 }
