@@ -1,9 +1,16 @@
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const baseConfig = require('./config')
 
 const devConfig = {
   plugins: [
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
     new webpack.DefinePlugin({
       process: {
         env: {
@@ -12,24 +19,18 @@ const devConfig = {
       },
     }),
     new HtmlWebpackPlugin({
-      title: 'Full Stack Web App',
+      title: 'Web App',
       template: './src/ui/index.html',
     }),
   ],
-  resolve: {
-    extensions: ['*', '.mjs', '.js', '.jsx'],
-    modules: ['node_modules', 'src'],
-    alias: {
-      'react-dom': '@hot-loader/react-dom',
-    },
-  },
+  devtool: 'source-map',
   devServer: {
     historyApiFallback: true,
-    contentBase: './dist',
+    contentBase: './src/public',
     hot: true,
     proxy: {
       '/graphql': 'http://localhost:4567/',
-      '/api/rooms': 'http://localhost:4567/',
+      '/api': 'http://localhost:4567/',
     },
   },
 }

@@ -2,10 +2,17 @@ const path = require('path')
 const webpack = require('webpack')
 const CopyPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const baseConfig = require('./config')
 const prodConfig = {
   plugins: [
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
     new webpack.DefinePlugin({
       process: {
         env: {
@@ -14,7 +21,7 @@ const prodConfig = {
       },
     }),
     new HtmlWebpackPlugin({
-      title: 'FullStack Web App',
+      title: 'UI Web App',
       template: './src/ui/index.html',
     }),
     new CopyPlugin([
@@ -28,11 +35,6 @@ const prodConfig = {
     path: path.join(process.cwd(), '/dist'),
     publicPath: '/',
     filename: 'bundle.js',
-  },
-  resolve: {
-    extensions: ['*', '.mjs', '.js', '.jsx'],
-    modules: ['node_modules', 'src'],
-    alias: {},
   },
 }
 

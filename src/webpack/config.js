@@ -1,4 +1,5 @@
 const path = require('path')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   entry: './src/ui/index.js',
@@ -14,8 +15,20 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.s[ca]ss$/,
-        loader: 'style-loader!css-loader!resolve-url-loader!sass-loader',
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+              // options...
+            },
+          },
+        ],
       },
     ],
   },
@@ -25,8 +38,8 @@ module.exports = {
     alias: {},
   },
   output: {
-    path: path.join(process.cwd(), '/dist'),
+    path: path.join(__dirname, '/dist'),
     publicPath: '/',
-    filename: 'dever.js',
+    filename: 'bundle.js',
   },
 }
