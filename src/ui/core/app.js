@@ -3,7 +3,7 @@ import { Router } from '@reach/router'
 import { hot } from 'react-hot-loader/root'
 import { Layout } from './layout'
 import { AuthProvider } from './context/auth'
-import { ErrorBoundary } from './boundary'
+import { RoomsProvider } from './context/rooms'
 
 const About = React.lazy(() => import('../pages/about'))
 const Home = React.lazy(() => import('../pages/home'))
@@ -13,24 +13,23 @@ const Login = React.lazy(() => import('../pages/login'))
 const Room = React.lazy(() => import('../pages/room'))
 export const App = () => {
   return (
-    <ErrorBoundary>
-      <AuthProvider>
+    <AuthProvider>
+      <RoomsProvider>
         <Layout>
-          <ErrorBoundary>
-            <React.Suspense fallback={<div>Loading</div>}>
-              <Router>
-                <Home path="/" />
-                <Room path="/rooms/:slug" />
-                <About path="/about" />
-                <Contact path="/contact" />
-                <Register path="/register" />
-                <Login path="/login" />
-              </Router>
-            </React.Suspense>
-          </ErrorBoundary>
+          <React.Suspense fallback={<div>Loading</div>}>
+            <Router>
+              <Home path="/" />
+              <Login path="/login" />
+              <Room path="/rooms/:slug" />
+              <About path="/about" />
+              <Contact path="/contact" />
+              <Register path="/register" />
+              <Login path="/login" />
+            </Router>
+          </React.Suspense>
         </Layout>
-      </AuthProvider>
-    </ErrorBoundary>
+      </RoomsProvider>
+    </AuthProvider>
   )
 }
 
