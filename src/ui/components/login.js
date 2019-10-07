@@ -5,9 +5,22 @@ import { Form, TextBox, EmailInput, Button } from 'react-form-elements'
 const LoginInput = ({ onSubmit, classes }) => {
   return (
     <div className={classes.formBase}>
-      <Form onSubmit={onSubmit}>
-        <EmailInput name="email" label="Email" />
-        <TextBox name="password" label="Password" type="password" />
+      <Form onSubmit={onSubmit} className="form">
+        <EmailInput
+          name="email"
+          label="Email"
+          className="field control"
+          inputClassName="input"
+          labelClassName="label"
+        />
+        <TextBox
+          name="password"
+          label="Password"
+          type="password"
+          className="field control"
+          inputClassName="input"
+          labelClassName="label"
+        />
         <Button>Login</Button>
       </Form>
     </div>
