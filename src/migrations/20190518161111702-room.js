@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
     table.string('name')
     table.string('description')
     table.string('slug')
+    table.string('icon')
     table.timestamps(true, true)
   })
 }
