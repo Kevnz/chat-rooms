@@ -5,10 +5,12 @@ const typeDefs = gql`
   The User is the person in the system
   """
   type User {
+    id: Int
     firstName: String
     lastName: String
     username: String
     email: String
+    avatar: String
   }
 
   type Query {

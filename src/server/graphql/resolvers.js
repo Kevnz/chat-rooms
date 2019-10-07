@@ -13,6 +13,7 @@ const resolvers = {
         args.loginInput.email,
         args.loginInput.password
       )
+      console.info('User', user)
       return {
         token: getToken(user.id),
         user: user.toJSON(),
