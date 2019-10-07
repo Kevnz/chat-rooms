@@ -19,16 +19,17 @@ const REGISTER_MUTATION = `
 `
 
 const RegisterForm = () => {
-  console.log({ Form, TextBox, EmailInput, Button })
-  console.log(useMutation)
-  console.log(useContext)
-  console.log(AuthContext)
+  console.info({ Form, TextBox, EmailInput, Button })
+  console.info(useMutation)
+  console.info(useContext)
+  console.info(AuthContext)
 
   const { data, makeQuery } = useMutation('/graphql', REGISTER_MUTATION)
   const { state, dispatch } = useContext(AuthContext)
   if (!Array.isArray(data)) {
-    console.log('the data is not an array', data)
-    // dispatch({ type: 'login', payload: data })
+    console.info('the data is not an array', data)
+    dispatch({ type: 'login', payload: data })
+    navigate('/')
   }
   if (state.isLoggedIn) {
     return <div>Account already exists</div>
