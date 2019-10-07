@@ -3,60 +3,70 @@
     "id": 1,
     "name": "General",
     "description": "General Room",
-    "slug": "general"
+    "slug": "general",
+    "icon": "inbox"
   },
   {
     "id": 2,
     "name": "Random",
     "description": "Random Talk Room",
-    "slug": "random"
+    "slug": "random",
+    "icon": "random"
   },
   {
     "id": 3,
-    "name": "Robust incremental hierarchy",
-    "description": "plug-and-play revolutionize ROI",
-    "slug": "robust-incremental-hierarchy"
+    "name": "Tasty Fresh",
+    "description": "robust maximize e-commerce",
+    "slug": "tasty-fresh-bike",
+    "icon": "calendar"
   },
   {
     "id": 4,
-    "name": "Multi-lateral mobile array",
-    "description": "open-source target e-services",
-    "slug": "multi-lateral-mobile-array"
+    "name": "Handmade Fresh",
+    "description": "integrated iterate platforms",
+    "slug": "handmade-fresh-pizza",
+    "icon": "atom"
   },
   {
     "id": 5,
-    "name": "Streamlined intangible workforce",
-    "description": "rich embrace infrastructures",
-    "slug": "streamlined-intangible-workforce"
+    "name": "Handmade Soft",
+    "description": "global leverage infomediaries",
+    "slug": "handmade-soft-pizza",
+    "icon": "tint"
   },
   {
     "id": 6,
-    "name": "Future-proofed scalable migration",
-    "description": "end-to-end strategize e-services",
-    "slug": "future-proofed-scalable-migration"
+    "name": "Handcrafted Wooden",
+    "description": "robust optimize supply-chains",
+    "slug": "handcrafted-wooden-bacon",
+    "icon": "coffee"
   },
   {
     "id": 7,
-    "name": "Decentralized tertiary process improvement",
-    "description": "sexy streamline technologies",
-    "slug": "decentralized-tertiary-process-improvement"
+    "name": "Small Fresh",
+    "description": "turn-key facilitate bandwidth",
+    "slug": "small-fresh-pants",
+    "icon": "layer-group"
   },
   {
     "id": 8,
-    "name": "Customer-focused client-driven customer loyalty",
-    "description": "24/7 facilitate experiences",
-    "slug": "customer-focused-client-driven-customer-loyalty"
+    "name": "Refined Cotton",
+    "description": "frictionless innovate paradigms",
+    "slug": "refined-cotton-towels",
+    "icon": "cocktail"
   },
   {
     "id": 9,
-    "name": "Re-contextualized dedicated circuit",
-    "description": "24/365 reintermediate synergies",
-    "slug": "re-contextualized-dedicated-circuit"
+    "name": "Gorgeous Concrete",
+    "description": "extensible facilitate content",
+    "slug": "gorgeous-concrete-bacon",
+    "icon": "tint"
   },
   {
     "id": 10,
-    "name": "Balanced asymmetric portal",
-    "description": "viral syndicate e-services",
-    "slug": "balanced-asymmetric-portal"
+    "name": "Unbranded Rubber",
+    "description": "bricks-and-clicks repurpose technologies",
+    "slug": "unbranded-rubber-keyboard",
+    "icon": "layer-group"
   }
 ]
