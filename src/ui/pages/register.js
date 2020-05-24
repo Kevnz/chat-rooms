@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { Field, Title } from '@brightleaf/elements'
 import { Form, TextBox, EmailInput, Button } from 'react-form-elements'
 import { navigate } from '@reach/router'
 import { useMutation } from '@brightleaf/react-hooks'
@@ -37,9 +38,10 @@ const RegisterForm = () => {
   return (
     <main>
       <section>
-        <h2>Create your account</h2>
+        <Title>Create your account</Title>
         <div>
           <Form
+            className="form"
             name="registerForm"
             onSubmit={({ firstName, lastName, email, password, username }) => {
               makeQuery({
@@ -53,28 +55,55 @@ const RegisterForm = () => {
               })
             }}
           >
-            <TextBox name="firstName" label="First Name" initialValue="" />
-            <TextBox name="lastName" label="Last Name" initialValue="" />
+            <TextBox
+              name="firstName"
+              label="First Name"
+              initialValue=""
+              className="field"
+              inputClassName="input"
+            />
+            <TextBox
+              name="lastName"
+              label="Last Name"
+              initialValue=""
+              className="field"
+              inputClassName="input"
+            />
             <EmailInput
               type="email"
               name="email"
               label="Your Email"
               initialValue=""
+              className="field"
+              inputClassName="input"
             />
-            <TextBox name="username" label="Username" initialValue="" />
+            <TextBox
+              name="username"
+              label="Username"
+              initialValue=""
+              className="field"
+              inputClassName="input"
+            />
             <TextBox
               name="password"
               label="Password"
               initialValue=""
               type="password"
+              className="field"
+              inputClassName="input"
             />
             <TextBox
               name="verifyPassword"
               label="Verify Password"
               initialValue=""
               type="password"
+              className="field"
+              inputClassName="input"
             />
-            <Button>Register</Button>
+            <br />
+            <Field>
+              <Button className="button">Register</Button>
+            </Field>
           </Form>
         </div>
       </section>
