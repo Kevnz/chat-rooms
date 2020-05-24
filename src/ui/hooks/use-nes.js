@@ -18,6 +18,24 @@ const reducer = (state, action, ...other) => {
         error: null,
         connecting: false,
       }
+    case 'answer':
+      messages.push(action.payload.data)
+      return {
+        ...state,
+        action: 'answer',
+        messages,
+        error: null,
+        connecting: false,
+      }
+    case 'offer':
+      messages.push(action.payload.data)
+      return {
+        ...state,
+        action: 'offer',
+        messages,
+        error: null,
+        connecting: false,
+      }
     case 'error':
       return {
         ...state,
@@ -52,7 +70,11 @@ const useNes = (url = 'ws://localhost:4567', subscribe) => {
         await client.connect()
 
         client.onUpdate = update => {
-          dispatch({ type: 'message', payload: { data: update } })
+          if (update.action) {
+            dispatch({ type: update.action, payload: { data: update } })
+          } else {
+            dispatch({ type: 'message', payload: { data: update } })
+          }
           return resolve()
         }
 
