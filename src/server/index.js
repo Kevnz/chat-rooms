@@ -1,16 +1,13 @@
 require('xtconf')()
 const Path = require('path')
-const { ApolloServer } = require('apollo-server-hapi')
 const Hapi = require('@hapi/hapi')
 const Manifest = require('./manifest')
-const Types = require('./graphql/types')
-const Resolvers = require('./graphql/resolvers')
+
 const analytics = require('./services/analytics')
 let app
 
 const start = async () => {
   try {
-    const server = new ApolloServer({ typeDefs: Types, resolvers: Resolvers })
     app = Hapi.server({
       port: process.env.PORT,
       routes: {
@@ -40,9 +37,7 @@ const start = async () => {
     app.subscription('/api/rooms/general')
     app.subscription('/rooms/{id}')
     app.subscription('/api/rooms/{id}')
-    await server.applyMiddleware({
-      app,
-    })
+    app.subscription('/api/videos/{id}')
 
     await app.start()
     analytics.event('ServerOperation', 'ServerStart')

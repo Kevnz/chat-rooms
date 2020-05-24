@@ -1,3 +1,6 @@
+const Types = require('./graphql/types')
+const Resolvers = require('./graphql/resolvers')
+
 module.exports = [
   {
     plugin: require('blipp'),
@@ -31,5 +34,9 @@ module.exports = [
       routes: ['src/server/routes/**/*.js'],
       ignore: ['src/server/routes/**/*.test.js'],
     },
+  },
+  {
+    plugin: require('graphi'),
+    options: { schema: Types, resolvers: Resolvers },
   },
 ]
