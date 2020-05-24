@@ -1,16 +1,21 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Form, TextArea, Button } from 'react-form-elements'
 
 function MessagePost({ username, onSubmit }) {
+  const formRef = useRef(null)
   return (
     <Form
+      ref={formRef}
       name="chatText"
       className="form"
       onSubmit={mdata => {
-        onSubmit({
-          ...mdata,
-          user: username,
-        })
+        onSubmit(
+          {
+            ...mdata,
+            user: username,
+          },
+          formRef
+        )
       }}
     >
       <TextArea
