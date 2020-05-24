@@ -150,10 +150,11 @@ const RoomPage = ({ slug }) => {
         <hr />
         <MessageForm
           username={user.username}
-          onSubmit={async e => {
+          onSubmit={async (e, formRef) => {
             console.log('e', e)
 
             postData(e)
+            formRef.current.reset()
           }}
         />
       </Container>
