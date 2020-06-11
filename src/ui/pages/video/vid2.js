@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import {
   useGet,
@@ -48,8 +48,6 @@ const onOffer = () => {}
 const onReady = () => {}
 const onAnswer = () => {}
 const VideoPage = ({ slug }) => {
-  const localVideo = useRef()
-  const remoteVideo = useRef()
   console.info('the video page', slug)
   const ctx = useContext(AuthContext)
   const user = ctx.user
@@ -82,20 +80,12 @@ const VideoPage = ({ slug }) => {
     })
 
     emitter.on('created', function(room) {
-      console.log('created event')
       navigator.mediaDevices
         .getUserMedia(streamConstraints)
         .then(function(stream) {
-          console.info('created getmedia')
           localStream = stream
-
           setLocalSrc(stream)
-
-          setIsCaller(true)
-
-          if (localVideo.current) {
-            localVideo.current.srcObject = stream
-          }
+          // setIsCaller(true)
         })
         .catch(function(err) {
           console.log('An error ocurred when accessing media devices', err)
@@ -210,7 +200,34 @@ const VideoPage = ({ slug }) => {
 
   const { data: startData, execute: startCall } = useAsync(async obj => {
     console.log('start call async method called')
+    return client.request({
+      path: `/api/video-start/${slug}`,
+      method: 'PUT',
+      payload: obj,
+    })
+  })
 
+  const { data: startData, execute: startCall } = useAsync(async obj => {
+    console.log('start call async method called')
+
+    rtcPeerConnection = new RTCPeerConnection(iceServers)
+    rtcPeerConnection.onicecandidate = onIceCandidate
+    rtcPeerConnection.ontrack = onAddStream
+    rtcPeerConnection.addTrack(localStream.getTracks()[0], localStream)
+    rtcPeerConnection.addTrack(localStream.getTracks()[1], localStream)
+    rtcPeerConnection
+      .createOffer()
+      .then(sessionDescription => {
+        rtcPeerConnection.setLocalDescription(sessionDescription)
+        socket.emit('offer', {
+          type: 'offer',
+          sdp: sessionDescription,
+          room: roomNumber,
+        })
+      })
+      .catch(error => {
+        console.log(error)
+      })
     await client.connect()
 
     return client.request({
@@ -219,7 +236,6 @@ const VideoPage = ({ slug }) => {
       payload: obj,
     })
   })
-
   console.info('start data', startData)
 
   return (
@@ -243,7 +259,6 @@ const VideoPage = ({ slug }) => {
             onClick={e => {
               e.preventDefault()
               console.log('start call button pressed')
-              setIsCaller(true)
 
               startCall({ user: user.username, message: 'Started room' })
             }}
@@ -259,10 +274,12 @@ const VideoPage = ({ slug }) => {
         <br />
         <hr />
 
-        <div>
-          <video autoPlay src={remoteSrc} />
-          <video autoPlay ref={localVideo} />
-        </div>
+        {streamDetails && (
+          <div>
+            <video autoPlay src={remoteSrc} />
+            <video src={localSrc} autoPlay />
+          </div>
+        )}
       </Container>
     </Container>
   )
